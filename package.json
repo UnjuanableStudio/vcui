@@ -1,15 +1,15 @@
 {
-  "name": "@dtlc/loading",
-  "version": "1.0.1",
-  "description": "loading mask layer",
+  "name": "@unjuanable/vui",
+  "version": "1.0.0",
+  "description": "基于Vue3的一些UI插件",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://e.coding.net/leenux/frontend/loading.git"
+    "url": "https://github.com/UnjuanableStudio/vui.git"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "LeeNux @lc7457",
+  "license": "MIT"
 }

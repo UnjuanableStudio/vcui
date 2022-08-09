@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'CLoading'
+  name: 'Loading'
 }
 </script>
 

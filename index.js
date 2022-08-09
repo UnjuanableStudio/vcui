@@ -1,7 +1,3 @@
-import CLoading from "./src/CLoading.vue";
+export const prefix = 'Unj'
 
-CLoading.install = function (app) {
-    app.component(CLoading.name, CLoading)
-}
-
-export default CLoading
+export * from './src'
