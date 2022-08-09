@@ -1,6 +1,6 @@
 {
   "name": "@unjuanable/vui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于Vue3的一些UI插件",
   "main": "index.js",
   "scripts": {

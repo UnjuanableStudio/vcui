@@ -1,8 +1,11 @@
-import {prefix} from "../index.js";
 import Loading from "./loading/Loading.vue";
+
+export const prefix = 'Unj'
 
 Loading.install = function (app) {
     app.component(`${prefix}${Loading.name}`, Loading)
 }
 
-export {Loading}
+export {
+    Loading as UnjLoading,
+}
