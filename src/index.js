@@ -1,4 +1,4 @@
-import Loading from "./loading/Loading.vue";
+import Loading from "./mask/Loading.vue";
 
 export const prefix = 'Unj'
 
