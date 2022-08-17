@@ -1,11 +1,10 @@
 <template>
   <!--  <test-scroll-page></test-scroll-page>-->
-  <unj-ellipse-mask :width="500" :height="800" color="rgba(0,0,0,0.5)"></unj-ellipse-mask>
+  <!--  <unj-ellipse-mask :width="500" :height="800" color="rgba(0,0,0,0.5)"></unj-ellipse-mask>-->
+  <unj-image src="/images/jiangxi.jpega" :width="500" :height="500"></unj-image>
 </template>
 
 <script>
-
-
 import TestScrollPage from "./components/TestScrollPage.vue";
 
 export default {
