@@ -1,35 +1,16 @@
 <template>
-  <scroll-page :size="3" scrollbar>
-    <template #page1>
-      <div style="background-color: bisque; height: 100%">
-        page1
-      </div>
-    </template>
-    <template #page2>
-      <div style="background-color: olivedrab; height: 100%">
-        page2
-      </div>
-    </template>
-    <template #page3>
-      <div style="background-color: blue; height: 100%">
-        page3
-      </div>
-    </template>
-    <template #footer>
-      <div style="background-color: red; height: 300%">
-        <p v-for="n in 100">{{ n }}</p>
-      </div>
-    </template>
-  </scroll-page>
+  <!--  <test-scroll-page></test-scroll-page>-->
+  <unj-ellipse-mask :width="500" :height="800" color="rgba(0,0,0,0.5)"></unj-ellipse-mask>
 </template>
 
 <script>
 
-import ScrollPage from "@/layout/ScrollPage.vue"
+
+import TestScrollPage from "./components/TestScrollPage.vue";
 
 export default {
   name: "Example",
-  components: {ScrollPage},
+  components: {TestScrollPage},
   setup() {
 
   },
@@ -50,5 +31,6 @@ html, body {
 #app {
   height: 100%;
   width: 100%;
+  background-color: blanchedalmond;
 }
 </style>
