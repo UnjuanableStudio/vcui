@@ -23,10 +23,8 @@
   </unj-scroll-page>
 </template>
 
-<script>
-export default {
-  name: "TestScrollPage"
-}
+<script setup>
+import {UnjScrollPage} from '@/layout/'
 </script>
 
 <style scoped>
