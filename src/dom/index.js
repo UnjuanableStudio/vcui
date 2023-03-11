@@ -1,8 +1,7 @@
-import {install} from "../index";
-import Image from "./Image.vue";
+import VcImage from "./VcImage.vue";
 
-Image.install = install.bind(Image)
-
-export {
-    Image as UnjImage,
+VcImage.install = function (app) {
+    app.component(VcImage.name, VcImage)
 }
+
+export {VcImage}

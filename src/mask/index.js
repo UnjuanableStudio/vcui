@@ -1,11 +1,13 @@
-import {install} from '../index'
-import Loading from "./Loading.vue";
-import EllipseMask from "./EllipseMask.vue";
+import VcLoading from "./VcLoading.vue";
+import VcEllipseMask from "./VcEllipseMask.vue";
 
-Loading.install = install.bind(Loading)
-EllipseMask.install = install.bind(EllipseMask)
+VcLoading.install = function (app) {
+    app.component(VcLoading.name, VcLoading)
+}
+VcEllipseMask.install = function (app) {
+    app.component(VcEllipseMask.name, VcEllipseMask)
+}
 
 export {
-    Loading as UnjLoading,
-    EllipseMask as UnjEllipseMask,
+    VcLoading, VcEllipseMask
 }

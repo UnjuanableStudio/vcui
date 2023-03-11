@@ -21,7 +21,7 @@ import {debounce} from 'throttle-debounce';
  * TODO: 2.0.0 版本将通过页码来进行防抖。
  */
 export default {
-  name: "ScrollPage",
+  name: "VcScrollPage",
   props: {
     size: {type: Number, default: 1}, // 滚动页数
     scrollbar: {type: Boolean, default: false}, // 是否显示滚动条

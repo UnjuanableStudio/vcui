@@ -1,5 +1,5 @@
 <template>
-  <unj-scroll-page :size="3" scrollbar>
+  <vc-scroll-page :size="3" scrollbar>
     <template #page1>
       <div style="background-color: bisque; height: 100%">
         page1
@@ -20,12 +20,11 @@
         <p v-for="n in 100">{{ n }}</p>
       </div>
     </template>
-  </unj-scroll-page>
+  </vc-scroll-page>
 </template>
 
 <script setup>
-import {UnjScrollPage} from '@/layout/'
-</script>
+import {VcScrollPage} from '@/layout/'</script>
 
 <style scoped>
 

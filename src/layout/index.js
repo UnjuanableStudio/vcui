@@ -1,8 +1,9 @@
-import {install} from "../index";
-import ScrollPage from "./ScrollPage.vue";
+import VcScrollPage from "./VcScrollPage.vue";
 
-ScrollPage.install = install.bind(ScrollPage)
+VcScrollPage.install = function (app) {
+    app.component(VcScrollPage.name, VcScrollPage)
+}
 
 export {
-    ScrollPage as UnjScrollPage,
+    VcScrollPage,
 }

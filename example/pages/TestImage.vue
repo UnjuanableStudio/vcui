@@ -1,11 +1,10 @@
 <template>
-  <unj-image src="/images/jiangxi.jpeg" :width="200" :height="200" mode="contain"></unj-image>
-  <unj-image src="/images/jiangxi.jpeg" :width="200" :height="200" mode="cover"></unj-image>
+  <vc-image src="/images/jiangxi.jpeg" :width="200" :height="200" mode="contain"></vc-image>
+  <vc-image src="/images/jiangxi.jpeg" :width="200" :height="200" mode="cover"></vc-image>
 </template>
 
 <script setup>
-import {UnjImage} from "@/dom/";
-</script>
+import {VcImage} from "@/dom/";</script>
 
 <style scoped>
 

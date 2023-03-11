@@ -20,7 +20,7 @@
 import {computed, reactive} from "vue";
 
 export default {
-  name: "Image",
+  name: "VcImage",
   emits: ['loading', 'error'],
   props: {
     src: {type: String},

@@ -1,5 +1,9 @@
-export const prefix = 'Unj' // 自定义组件前缀
+import {VcImage} from "./dom"
+import {VcScrollPage} from "./layout"
+import {VcEllipseMask, VcLoading} from "./mask"
 
-export function install(app) {
-    app.component(`${prefix}${this.name}`, this)
+export {
+    VcImage,
+    VcScrollPage,
+    VcLoading, VcEllipseMask
 }
