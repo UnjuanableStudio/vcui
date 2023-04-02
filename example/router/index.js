@@ -1,12 +1,26 @@
 import {createRouter, createWebHashHistory} from "vue-router"
 import Home from '../pages/index.vue'
 import Image from '../pages/TestImage.vue'
-import ScrollPage from "../pages/TestScrollPage.vue";
+import ScrollView from "../pages/TestScrollView.vue";
+import TestPcApp from "../pages/TestPcApp.vue";
 
 const routes = [
-    {path: '/', component: Home},
-    {path: '/image', component: Image},
-    {path: '/scroll_page', component: ScrollPage},
+    {
+        path: '/', component: Home,
+        meta: {label: "首页"}
+    },
+    {
+        path: '/image', component: Image,
+        meta: {label: "Image"}
+    },
+    {
+        path: '/scroll_view', component: ScrollView,
+        meta: {label: "ScrollView"}
+    },
+    {
+        path: '/pc_app', component: TestPcApp,
+        meta: {label: "PC Layout"}
+    }
 ]
 
 const router = createRouter({
@@ -15,3 +29,5 @@ const router = createRouter({
 })
 
 export default router
+
+export {routes}

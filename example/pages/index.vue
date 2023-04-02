@@ -1,21 +1,16 @@
 <template>
-  <ul>
-    <li>
-      <router-link to="/">目录</router-link>
-    </li>
-    <li>
-      <router-link to="/image">Image</router-link>
-    </li>
-    <li>
-      <router-link to="/scroll_page">ScrollPage</router-link>
-    </li>
-  </ul>
+    <ul>
+        <li v-for="item in route">
+            <router-link :to="item.path">{{ item.meta.label }}</router-link>
+        </li>
+    </ul>
 </template>
 
-<script>
-export default {
-  name: "index"
-}
+<script setup>
+import {routes} from "../router"
+import {ref} from "vue";
+
+const route = ref(routes)
 </script>
 
 <style scoped>
