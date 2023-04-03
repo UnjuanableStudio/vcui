@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import {FullScrollView} from '@'</script>
+import {FullScrollView} from '../../src'</script>
 
 <style scoped>
 

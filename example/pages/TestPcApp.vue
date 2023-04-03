@@ -1,14 +1,19 @@
 <template>
-    <pc-app-layout v-model:show-left-panel="lp"></pc-app-layout>
+    <vc-pc-app-layout v-model:show-left-panel="lp">
+        <template #content="size">
+            {{ size.width }}
+            {{ size.height }}
+        </template>
+    </vc-pc-app-layout>
 </template>
 
 <script>
-import PcAppLayout from "@/layout/PcAppLayout/PcAppLayout.vue";
+import {VcPcAppLayout} from "../../src/";
 import {ref} from "vue";
 
 export default {
     name: "TestPcApp",
-    components: {PcAppLayout},
+    components: {VcPcAppLayout},
     setup() {
         const lp = ref(true)
         return {lp}

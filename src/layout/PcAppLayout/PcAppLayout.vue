@@ -10,7 +10,7 @@
             </div>
         </header>
 
-        <main ref="main">
+        <main>
             <div class="left" v-show="showLeftPanel" :style="leftPanelStyle">
                 <slot name="left-panel"></slot>
                 <div class="close" v-if="showLeftClose" @click="hideLeftPanel">
@@ -24,8 +24,8 @@
                         <slot name="toolbar"></slot>
                     </div>
 
-                    <div class="content" ref="container" :style="contentStyle">
-                        <slot name="content"></slot>
+                    <div class="content" ref="content" :style="contentStyle">
+                        <slot name="content" :width="contentWidth" :height="contentHeight"></slot>
                     </div>
 
                     <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 
 export default {
     name: "PcAppLayout",
@@ -61,6 +61,9 @@ export default {
     },
     emits: ['update:showLeftPanel'],
     setup(props, ctx) {
+        const content = ref(null)
+        const contentWidth = ref(0)
+        const contentHeight = ref(0)
         const hideLeftPanel = () => {
             ctx.emit("update:showLeftPanel", !props.showLeftPanel)
         }
@@ -91,9 +94,19 @@ export default {
                 width: props.showRightPanel ? props.rightPanelWidth + 'px' : '0'
             }
         })
+        onMounted(() => {
+            contentWidth.value = content.value.clientWidth
+            contentHeight.value = content.value.clientHeight
+            window && window.addEventListener("resize", () => {
+                contentWidth.value = content.value.clientWidth
+                contentHeight.value = content.value.clientHeight
+            })
+        })
 
         return {
+            content,
             hideLeftPanel,
+            contentWidth, contentHeight,
             leftPanelStyle, mainStyle, toolbarStyle, contentStyle, rightPanelStyle
         }
     }
