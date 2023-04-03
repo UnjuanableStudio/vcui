@@ -1,47 +1,49 @@
 <template>
-    <header>
-        <div class="left">
-            <slot name="header-left"></slot>
-        </div>
-        <div class="right">
-            <slot name="header-right"></slot>
-        </div>
-    </header>
-
-    <main ref="main">
-        <div class="left" v-show="showLeftPanel" :style="leftPanelStyle">
-            <slot name="left-panel"></slot>
-            <div class="close" v-if="showLeftClose" @click="hideLeftPanel">
-                <span>X</span>
+    <div class="pc-app-box" v-show="inBox"></div>
+    <Teleport to=".pc-app-box" :disabled="!inBox">
+        <header>
+            <div class="left">
+                <slot name="header-left"></slot>
             </div>
-        </div>
+            <div class="right">
+                <slot name="header-right"></slot>
+            </div>
+        </header>
 
-        <div class="main" :style="mainStyle">
-            <div class="container">
-                <div class="toolbar" :style="toolbarStyle">
-                    <slot name="toolbar"></slot>
-                </div>
-
-                <div class="content" ref="container" :style="contentStyle">
-                    <slot name="content"></slot>
-                </div>
-
-                <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
-                    <slot name="right-panel"></slot>
+        <main ref="main">
+            <div class="left" v-show="showLeftPanel" :style="leftPanelStyle">
+                <slot name="left-panel"></slot>
+                <div class="close" v-if="showLeftClose" @click="hideLeftPanel">
+                    <span>X</span>
                 </div>
             </div>
 
-            <footer>
-                <div class="left">
-                    <slot name="footer-left"></slot>
-                </div>
-                <div class="right">
-                    <slot name="footer-right"></slot>
-                </div>
-            </footer>
-        </div>
+            <div class="main" :style="mainStyle">
+                <div class="container">
+                    <div class="toolbar" :style="toolbarStyle">
+                        <slot name="toolbar"></slot>
+                    </div>
 
-    </main>
+                    <div class="content" ref="container" :style="contentStyle">
+                        <slot name="content"></slot>
+                    </div>
+
+                    <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
+                        <slot name="right-panel"></slot>
+                    </div>
+                </div>
+
+                <footer>
+                    <div class="left">
+                        <slot name="footer-left"></slot>
+                    </div>
+                    <div class="right">
+                        <slot name="footer-right"></slot>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </Teleport>
 </template>
 
 <script>
@@ -55,6 +57,7 @@ export default {
         showLeftPanel: {type: Boolean, default: true},
         showRightPanel: {type: Boolean, default: true},
         showLeftClose: {type: Boolean, default: false},
+        inBox: {type: Boolean, default: true},
     },
     emits: ['update:showLeftPanel'],
     setup(props, ctx) {
@@ -98,6 +101,11 @@ export default {
 </script>
 
 <style scoped>
+.pc-app-box {
+    min-width: 1200px;
+    height: 100%;
+}
+
 header {
     position: relative;
     width: 100%;
