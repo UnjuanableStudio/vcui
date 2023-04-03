@@ -1,5 +1,5 @@
 import _FullScrollView from "./FullScrollView.vue";
-import {getComponentPrefix} from "@/_utils/index.js";
+import {getComponentPrefix} from "../../_utils/index.js";
 
 const FullScrollView = Object.assign(_FullScrollView, {
     install: (app, options) => {

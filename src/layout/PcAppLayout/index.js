@@ -1,5 +1,5 @@
 import _PcAppLayout from "./PcAppLayout.vue";
-import {getComponentPrefix} from "@/_utils/index.js";
+import {getComponentPrefix} from "../../_utils/index.js";
 
 const PcAppLayout = Object.assign(_PcAppLayout, {
     install: (app, options) => {

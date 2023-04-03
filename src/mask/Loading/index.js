@@ -1,5 +1,5 @@
 import _Loading from "./Loading.vue";
-import {getComponentPrefix} from "@/_utils/index.js";
+import {getComponentPrefix} from "../../_utils/index.js";
 
 const Loading = Object.assign(_Loading, {
     install: (app, options) => {
