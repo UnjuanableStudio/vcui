@@ -1,10 +1,9 @@
 import _PcAppLayout from "./PcAppLayout.vue";
-import {getComponentPrefix} from "../../_utils/index.js";
+import {getPrefixComponent} from "../../_utils";
 
 const PcAppLayout = Object.assign(_PcAppLayout, {
     install: (app, options) => {
-        const componentPrefix = getComponentPrefix(options);
-        app.component(componentPrefix + _PcAppLayout.name, _PcAppLayout)
+        app.component(getPrefixComponent(_PcAppLayout.name), _PcAppLayout)
     }
 })
 export default PcAppLayout

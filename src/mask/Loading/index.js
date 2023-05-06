@@ -1,11 +1,9 @@
 import _Loading from "./Loading.vue";
-import {getComponentPrefix} from "../../_utils/index.js";
+import {getPrefixComponent} from "../../_utils";
 
 const Loading = Object.assign(_Loading, {
     install: (app, options) => {
-        const componentPrefix = getComponentPrefix(options);
-        app.component(componentPrefix + _Loading.name, _Loading)
+        app.component(getPrefixComponent(_Loading.name), _Loading)
     }
 })
-
 export default Loading

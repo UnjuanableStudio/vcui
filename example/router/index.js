@@ -1,25 +1,25 @@
 import {createRouter, createWebHashHistory} from "vue-router"
-import Home from '../pages/index.vue'
-import Image from '../pages/TestImage.vue'
-import ScrollView from "../pages/TestScrollView.vue";
-import TestPcApp from "../pages/TestPcApp.vue";
 
 const routes = [
     {
-        path: '/', component: Home,
+        path: '/', component: () => import("../pages/index.vue"),
         meta: {label: "首页"}
     },
     {
-        path: '/image', component: Image,
+        path: '/image', component: () => import("../pages/TestImage.vue"),
         meta: {label: "Image"}
     },
     {
-        path: '/scroll_view', component: ScrollView,
+        path: '/scroll_view', component: () => import("../pages/TestScrollView.vue"),
         meta: {label: "ScrollView"}
     },
     {
-        path: '/pc_app', component: TestPcApp,
+        path: '/pc_app', component: () => import("../pages/TestPcApp.vue"),
         meta: {label: "PC Layout"}
+    },
+    {
+        path: '/pointer_path', component: () => import("../pages/TestPointerPath.vue"),
+        meta: {label: "通过画布获取轨迹点"}
     }
 ]
 

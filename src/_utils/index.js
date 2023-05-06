@@ -1,5 +1,5 @@
 const COMPONENT_PREFIX = 'Vc';
 
-export const getComponentPrefix = (options) => {
-    return options?.componentPrefix ?? COMPONENT_PREFIX;
+export const getPrefixComponent = (name) => {
+    return COMPONENT_PREFIX + name
 };
