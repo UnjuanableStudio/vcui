@@ -8,7 +8,7 @@ export default {
         rightPanelWidth: {type: Number, default: 270},
         showLeftPanel: {type: Boolean, default: true},
         showRightPanel: {type: Boolean, default: true},
-        showLeftClose: {type: Boolean, default: false},
+        showLeftToggle: {type: Boolean, default: false},
         inBox: {type: Boolean, default: true},
     },
     emits: ['update:showLeftPanel'],
@@ -79,10 +79,10 @@ export default {
     <div class="pc-app-box" v-show="inBox"></div>
     <Teleport to=".pc-app-box" :disabled="!inBox">
         <header>
-            <div class="left">
+            <div class="left" v-if="$slots['header-left']">
                 <slot name="header-left"></slot>
             </div>
-            <div class="right">
+            <div class="right" v-if="$slots['header-right']">
                 <slot name="header-right"></slot>
             </div>
         </header>
@@ -90,8 +90,9 @@ export default {
         <main>
             <div class="left" :style="leftPanelStyle">
                 <slot name="left-panel"></slot>
-                <div class="close" v-if="showLeftClose" @click="toggleLeftPanel">
-                    <span>X</span>
+                <div class="close" v-if="showLeftToggle" @click="toggleLeftPanel">
+                    <span v-if="showLeftPanel"> &blacktriangleleft; </span>
+                    <span v-else> &blacktriangleright; </span>
                 </div>
             </div>
 
@@ -174,7 +175,7 @@ main .left .close {
     height: 60px;
     line-height: 60px;
     text-align: center;
-    font-size: 12px;
+    font-size: 24px;
     cursor: pointer;
     background-color: #191a1b;
     color: #ffffff;

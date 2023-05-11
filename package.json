@@ -17,7 +17,6 @@
     "url": "https://github.com/UnjuanableStudio/vcui.git"
   },
   "dependencies": {
-    "@unjuanable/iconfont": "^1.0.1",
     "throttle-debounce": "^5.0.0",
     "vue": "^3.2.47"
   },
