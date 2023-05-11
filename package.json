@@ -16,13 +16,14 @@
     "type": "git",
     "url": "https://github.com/UnjuanableStudio/vcui.git"
   },
+  "dependencies": {
+    "@unjuanable/iconfont": "^1.0.1",
+    "throttle-debounce": "^5.0.0",
+    "vue": "^3.2.47"
+  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.1.4",
-    "vue": "^3.2.47",
     "vue-router": "^4.1.6"
-  },
-  "dependencies": {
-    "throttle-debounce": "^5.0.0"
   }
 }

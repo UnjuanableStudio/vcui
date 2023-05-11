@@ -1,53 +1,5 @@
-<template>
-    <div class="pc-app-box" v-show="inBox"></div>
-    <Teleport to=".pc-app-box" :disabled="!inBox">
-        <header>
-            <div class="left">
-                <slot name="header-left"></slot>
-            </div>
-            <div class="right">
-                <slot name="header-right"></slot>
-            </div>
-        </header>
-
-        <main>
-            <div class="left" v-show="showLeftPanel" :style="leftPanelStyle">
-                <slot name="left-panel"></slot>
-                <div class="close" v-if="showLeftClose" @click="hideLeftPanel">
-                    <span>X</span>
-                </div>
-            </div>
-
-            <div class="main" :style="mainStyle">
-                <div class="container">
-                    <div class="toolbar" :style="toolbarStyle">
-                        <slot name="toolbar"></slot>
-                    </div>
-
-                    <div class="content" ref="content" :style="contentStyle">
-                        <slot name="content" :width="contentWidth" :height="contentHeight"></slot>
-                    </div>
-
-                    <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
-                        <slot name="right-panel"></slot>
-                    </div>
-                </div>
-
-                <footer>
-                    <div class="left">
-                        <slot name="footer-left"></slot>
-                    </div>
-                    <div class="right">
-                        <slot name="footer-right"></slot>
-                    </div>
-                </footer>
-            </div>
-        </main>
-    </Teleport>
-</template>
-
 <script>
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, useSlots} from "vue";
 
 export default {
     name: "PcAppLayout",
@@ -61,10 +13,11 @@ export default {
     },
     emits: ['update:showLeftPanel'],
     setup(props, ctx) {
+        const slots = useSlots()
         const content = ref(null)
         const contentWidth = ref(0)
         const contentHeight = ref(0)
-        const hideLeftPanel = () => {
+        const toggleLeftPanel = () => {
             ctx.emit("update:showLeftPanel", !props.showLeftPanel)
         }
         const leftPanelStyle = computed(() => {
@@ -77,6 +30,12 @@ export default {
                 width: props.showLeftPanel ? 'calc(100% - ' + props.leftPanelWidth + 'px)' : '100%'
             }
         })
+        const containerStyle = computed(() => {
+            const height = slots["footer"] ? 40 : 0
+            return {
+                height: 'calc(100% - ' + height + 'px)'
+            }
+        })
         const toolbarStyle = computed(() => {
             const width = props.showRightPanel ? props.rightPanelWidth : 0
             return {
@@ -85,8 +44,10 @@ export default {
         })
         const contentStyle = computed(() => {
             const width = props.showRightPanel ? props.rightPanelWidth : 0
+            const height = slots["toolbar"] ? 40 : 0
             return {
-                width: 'calc(100% - ' + width + 'px)'
+                width: 'calc(100% - ' + width + 'px)',
+                height: 'calc(100% - ' + height + 'px)'
             }
         })
         const rightPanelStyle = computed(() => {
@@ -105,13 +66,63 @@ export default {
 
         return {
             content,
-            hideLeftPanel,
+            toggleLeftPanel,
             contentWidth, contentHeight,
-            leftPanelStyle, mainStyle, toolbarStyle, contentStyle, rightPanelStyle
+            leftPanelStyle, mainStyle, containerStyle, toolbarStyle, contentStyle, rightPanelStyle
         }
     }
 }
 </script>
+
+
+<template>
+    <div class="pc-app-box" v-show="inBox"></div>
+    <Teleport to=".pc-app-box" :disabled="!inBox">
+        <header>
+            <div class="left">
+                <slot name="header-left"></slot>
+            </div>
+            <div class="right">
+                <slot name="header-right"></slot>
+            </div>
+        </header>
+
+        <main>
+            <div class="left" :style="leftPanelStyle">
+                <slot name="left-panel"></slot>
+                <div class="close" v-if="showLeftClose" @click="toggleLeftPanel">
+                    <span>X</span>
+                </div>
+            </div>
+
+            <div class="main" :style="mainStyle">
+                <div class="container" :style="containerStyle">
+                    <div class="toolbar" v-if="$slots['toolbar']" :style="toolbarStyle">
+                        <slot name="toolbar"></slot>
+                    </div>
+
+                    <div class="content" ref="content" :style="contentStyle">
+                        <slot name="content" :width="contentWidth" :height="contentHeight"></slot>
+                    </div>
+
+                    <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
+                        <slot name="right-panel"></slot>
+                    </div>
+                </div>
+
+                <footer v-if="$slots['footer']">
+                    <div class="left">
+                        <slot name="footer-left"></slot>
+                    </div>
+                    <div class="right">
+                        <slot name="footer-right"></slot>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </Teleport>
+</template>
+
 
 <style scoped>
 .pc-app-box {

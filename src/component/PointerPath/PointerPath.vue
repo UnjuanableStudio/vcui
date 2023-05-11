@@ -2,6 +2,7 @@
 import {markRaw, onMounted, ref} from 'vue'
 
 export default {
+    name: "PointerPath",
     props: {
         width: {type: Number, default: 200},
         height: {type: Number, default: 200},
@@ -16,7 +17,6 @@ export default {
         let ctx2d = null
 
         onMounted(() => {
-            console.log(canvas.value)
             ctx2d = canvas.value.getContext("2d");
             ctx2d.lineWidth = props.lineWidth;
             ctx2d.strokeStyle = props.color; //线条

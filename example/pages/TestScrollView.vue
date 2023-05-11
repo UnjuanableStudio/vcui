@@ -1,5 +1,5 @@
 <template>
-    <vc-scroll-page :size="3" scrollbar>
+    <full-scroll-layout :size="3" scrollbar>
         <template #page1>
             <div style="background-color: bisque; height: 100%">
                 page1
@@ -20,11 +20,11 @@
                 <p v-for="n in 100">{{ n }}</p>
             </div>
         </template>
-    </vc-scroll-page>
+    </full-scroll-layout>
 </template>
 
 <script setup>
-import {FullScrollView} from '../../src'</script>
+import {FullScrollLayout} from '../../src'</script>
 
 <style scoped>
 
