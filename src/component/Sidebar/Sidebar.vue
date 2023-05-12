@@ -1,32 +1,26 @@
 <script>
-import {computed, ref} from "vue";
+import {computed, onMounted, provide, ref, useSlots} from "vue";
 
 export default {
     name: "Sidebar",
     props: {
-        options: {type: Object},
-        labelSize: {type: Number, default: 60},
-        collapsed: {type: Boolean, default: false},
+        labelSize: {type: Number, default: 80},
+        collapsed: {type: Boolean, default: true},
         default: {type: Number},
     },
     emits: ["update:collapsed"],
     setup(props, ctx) {
-        const activated = ref(0)
+        const slots = useSlots()
+        const activated = ref(-1)
         const activatedComponent = ref(null)
         const switchTab = (index) => {
             activated.value = index
-            activatedComponent.value = props.options[index].component
+            // activatedComponent.value = props.options[index].component
             ctx.emit('update:collapsed', true)
         }
         const closeComponentPanel = () => {
             ctx.emit('update:collapsed', false)
         }
-        const fontSize = computed(() => {
-            return props.labelSize / 2
-        })
-        const labelStyle = computed(() => {
-
-        })
         const labelActiveStyle = computed(() => {
             if (activated.value >= 0) {
                 return {
@@ -39,11 +33,25 @@ export default {
             }
         })
         const componentStyle = computed(() => {
-
+            return {
+                left: props.labelSize + 'px',
+                width: 'calc(100% - ' + props.labelSize + 'px )'
+            }
+        })
+        onMounted(() => {
+            console.log(slots.default())
+            if (props.default >= 0) {
+                switchTab(props.default)
+            }
+        })
+        provide("SidebarLabelSize", props.labelSize)
+        provide("SidebarSwitchTab", switchTab)
+        provide("SidebarActivated", () => {
+            return activated.value
         })
         return {
             activated, activatedComponent,
-            fontSize, labelStyle, labelActiveStyle, componentStyle,
+            labelActiveStyle, componentStyle,
             switchTab, closeComponentPanel
         }
     }
@@ -55,13 +63,7 @@ export default {
         <div class="tabs-bar">
             <div class="tabs">
                 <ul>
-                    <li v-for="(item,index) in options"
-                        :class="{'active':activated===index}"
-                        :style="labelStyle"
-                        @click="switchTab(index)">
-                        <span v-html="item.icon"></span>
-                        <label>{{ item.label }}</label>
-                    </li>
+                    <slot></slot>
                 </ul>
                 <div class="activated" :style="labelActiveStyle"></div>
             </div>
@@ -70,10 +72,9 @@ export default {
             <div class="container">
                 <component :is="activatedComponent"></component>
             </div>
-            <div class="close" @click="closeComponentPanel">
-                <span v-if="collapsed"> &blacktriangleleft; </span>
-                <span v-else> &blacktriangleright; </span>
-            </div>
+        </div>
+        <div class="close" v-show="collapsed" @click="closeComponentPanel">
+            <span> &blacktriangleleft; </span>
         </div>
     </div>
 </template>
@@ -90,31 +91,32 @@ export default {
     display: inline-block;
     position: absolute;
     height: 100%;
+    background-color: #191a1b;
 }
 
-.sidebar .menu .tabs {
+.sidebar .tabs-bar .tabs {
     position: relative;
     top: 0;
-    width: 100%;
     height: 100%;
     color: #808080;
 }
 
-.sidebar .menu .tabs li {
+
+.sidebar .tabs-bar .tabs li {
     position: relative;
     text-align: center;
     cursor: pointer;
     z-index: 2;
 }
 
-.sidebar .menu .tabs li span {
+.sidebar .tabs-bar .tabs li span {
     display: block;
     width: 100%;
     height: 60%;
     line-height: 1.4;
 }
 
-.sidebar .menu .tabs li label {
+.sidebar .tabs-bar .tabs li label {
     display: block;
     width: 100%;
     height: 40%;
@@ -122,11 +124,12 @@ export default {
     font-size: 0.4em;
 }
 
-.sidebar .menu .tabs li.active {
+.sidebar .tabs-bar .tabs li.active {
     transition: all 0.9s;
+    color: white;
 }
 
-.sidebar .menu .tabs .activated {
+.sidebar .tabs-bar .tabs .activated {
     position: absolute;
     top: 0;
     right: 0;
@@ -134,16 +137,18 @@ export default {
     transition: all 0.5s;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    background-color: #262728;
 }
 
-.sidebar .main {
+.sidebar .component {
     display: block;
     position: absolute;
     z-index: 99;
     height: 100%;
+    background-color: #262728;
 }
 
-.sidebar .main .box {
+.sidebar .component .container {
     position: absolute;
     top: 0;
     left: 0;
@@ -152,7 +157,7 @@ export default {
     overflow: hidden;
 }
 
-.sidebar .main .close {
+.sidebar .close {
     position: absolute;
     top: 50px;
     right: -10px;
@@ -165,6 +170,8 @@ export default {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     z-index: 99;
+    background-color: #262728;
+    color: white;
 }
 
 

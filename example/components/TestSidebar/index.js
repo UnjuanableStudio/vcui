@@ -6,25 +6,25 @@ export function useSideBarConfig() {
         // {key: "layer", icon: "icon-layer", label: "图层", component: markRaw(defineAsyncComponent(() => import('./components/resource/HierarchyPanel.vue')))},
         {
             key: "template",
-            icon: "icon-template",
+            icon: "&lt;",
             label: "模板",
             component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
         },
         {
             key: "image",
-            icon: "icon-resource",
+            icon: "&lt;",
             label: "素材",
             component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
         },
         {
             key: "upload",
-            icon: "icon-upload",
+            icon: "&lt;",
             label: "上传",
             component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
         },
         {
             key: "text",
-            icon: "icon-text",
+            icon: "&lt;",
             label: "文字",
             component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
         }
