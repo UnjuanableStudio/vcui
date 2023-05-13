@@ -1,5 +1,5 @@
 <script>
-import {computed, onMounted, provide, ref, useSlots} from "vue";
+import {computed, onMounted, ref, useSlots} from "vue";
 
 export default {
     name: "Sidebar",
@@ -11,8 +11,10 @@ export default {
     emits: ["update:collapsed"],
     setup(props, ctx) {
         const slots = useSlots()
+        const mounted = ref(false)
         const activated = ref(-1)
         const activatedComponent = ref(null)
+        const list = ref([])
         const switchTab = (index) => {
             activated.value = index
             // activatedComponent.value = props.options[index].component
@@ -32,26 +34,42 @@ export default {
                 display: 'none'
             }
         })
+        const labelStyle = computed(() => {
+            return {
+                width: props.labelSize + 'px',
+                height: props.labelSize + 'px',
+                'font-size': fontSize.value + 'px'
+            }
+        })
+        const fontSize = computed(() => {
+            return props.labelSize / 2
+        })
         const componentStyle = computed(() => {
             return {
                 left: props.labelSize + 'px',
                 width: 'calc(100% - ' + props.labelSize + 'px )'
             }
         })
+
+        slots.default().forEach(item => {
+            console.log(item)
+            const data = {
+                label: item.props.label
+            }
+
+            list.value.push(data)
+        })
+
         onMounted(() => {
-            console.log(slots.default())
+            mounted.value = true
             if (props.default >= 0) {
                 switchTab(props.default)
             }
         })
-        provide("SidebarLabelSize", props.labelSize)
-        provide("SidebarSwitchTab", switchTab)
-        provide("SidebarActivated", () => {
-            return activated.value
-        })
+
         return {
-            activated, activatedComponent,
-            labelActiveStyle, componentStyle,
+            mounted, activated, activatedComponent, list,
+            labelActiveStyle, labelStyle, fontSize, componentStyle,
             switchTab, closeComponentPanel
         }
     }
@@ -63,15 +81,18 @@ export default {
         <div class="tabs-bar">
             <div class="tabs">
                 <ul>
-                    <slot></slot>
+                    <template v-for="item in list">
+                        <li :style="labelStyle" @click="switchTab">
+                            <span v-html="item.icon"></span>
+                            <label>{{ item.label }}</label>
+                        </li>
+                    </template>
                 </ul>
                 <div class="activated" :style="labelActiveStyle"></div>
             </div>
         </div>
         <div class="component" v-if="collapsed" :style="componentStyle">
-            <div class="container">
-                <component :is="activatedComponent"></component>
-            </div>
+            <slot v-if="mounted"></slot>
         </div>
         <div class="close" v-show="collapsed" @click="closeComponentPanel">
             <span> &blacktriangleleft; </span>

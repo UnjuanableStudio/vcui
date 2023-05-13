@@ -21,6 +21,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@unjuanable/iconfont": "^1.0.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.1.4",
     "vue-router": "^4.1.6"

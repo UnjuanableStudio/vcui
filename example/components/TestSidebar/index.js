@@ -8,25 +8,25 @@ export function useSideBarConfig() {
             key: "template",
             icon: "&lt;",
             label: "模板",
-            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
+            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem1.vue')))
         },
         {
             key: "image",
             icon: "&lt;",
             label: "素材",
-            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
+            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem1.vue')))
         },
         {
             key: "upload",
             icon: "&lt;",
             label: "上传",
-            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
+            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem1.vue')))
         },
         {
             key: "text",
             icon: "&lt;",
             label: "文字",
-            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem.vue')))
+            component: markRaw(defineAsyncComponent(() => import('./TestSidebarItem1.vue')))
         }
     ]
 
