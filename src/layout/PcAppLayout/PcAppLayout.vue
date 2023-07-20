@@ -98,12 +98,7 @@ export default {
         </div>
 
         <footer v-if="$slots['footer']">
-          <div class="left">
-            <slot name="footer-left"></slot>
-          </div>
-          <div class="right">
-            <slot name="footer-right"></slot>
-          </div>
+          <slot name="footer"></slot>
         </footer>
       </div>
     </main>
@@ -173,19 +168,7 @@ footer {
   left: 0;
   width: 100%;
   height: 40px;
+  line-height: 40px;
   background-color: white;
-}
-
-footer .left {
-  height: 100%;
-  float: left;
-  display: flex;
-  justify-content: left;
-}
-
-footer .right {
-  float: right;
-  display: flex;
-  justify-content: right;
 }
 </style>

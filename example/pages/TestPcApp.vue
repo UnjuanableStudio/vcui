@@ -1,11 +1,5 @@
 <template>
   <vc-pc-app-layout :show-left-panel="true" :inBox="false" :leftPanelWidth="collapsed?400:80">
-    <template #header-left>
-      <span style="color: #f0f2f4">header-left</span>
-    </template>
-    <template #header-right>
-      <span style="color: red">dsadasd</span>
-    </template>
     <template #left-panel>
       <sidebar v-model:collapsed="collapsed" v-model:activated="activate">
         <sidebar-item label="按钮" :icon="$iconfont('icon-uploader',22)" :active="activate===0">
@@ -19,6 +13,12 @@
     <template #content="cont">
       {{ cont.width }}
       {{ cont.height }}
+    </template>
+    <template #toolbar>
+      111
+    </template>
+    <template #footer>
+     aaaa
     </template>
   </vc-pc-app-layout>
 </template>
