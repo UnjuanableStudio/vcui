@@ -8,7 +8,6 @@ export default {
     rightPanelWidth: {type: Number, default: 270},
     showLeftPanel: {type: Boolean, default: true},
     showRightPanel: {type: Boolean, default: true},
-    inBox: {type: Boolean, default: true},
   },
   emits: ['update:showLeftPanel', 'update:showRightPanel'],
   setup(props, ctx) {
@@ -118,43 +117,35 @@ export default {
 
 
 <template>
-  <div class="pc-app-box" v-show="inBox"></div>
-  <Teleport to=".pc-app-box" :disabled="!inBox">
-    <main>
-      <div class="left" :style="leftPanelStyle">
-        <slot name="left-panel"></slot>
-      </div>
+  <main>
+    <div class="left" :style="leftPanelStyle">
+      <slot name="left-panel"></slot>
+    </div>
 
-      <div class="main" :style="mainStyle">
-        <div class="container" :style="containerStyle">
-          <div class="toolbar" v-if="$slots['toolbar']" :style="toolbarStyle">
-            <slot name="toolbar"></slot>
-          </div>
-
-          <div class="content" ref="content" :style="contentStyle">
-            <slot name="content" :width="contentWidth" :height="contentHeight"></slot>
-          </div>
-
-          <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
-            <slot name="right-panel"></slot>
-          </div>
+    <div class="main" :style="mainStyle">
+      <div class="container" :style="containerStyle">
+        <div class="toolbar" v-if="$slots['toolbar']" :style="toolbarStyle">
+          <slot name="toolbar"></slot>
         </div>
 
-        <footer v-if="$slots['footer']">
-          <slot name="footer"></slot>
-        </footer>
+        <div class="content" ref="content" :style="contentStyle">
+          <slot name="content" :width="contentWidth" :height="contentHeight"></slot>
+        </div>
+
+        <div class="panel" v-show="showRightPanel" :style="rightPanelStyle">
+          <slot name="right-panel"></slot>
+        </div>
       </div>
-    </main>
-  </Teleport>
+
+      <footer v-if="$slots['footer']">
+        <slot name="footer"></slot>
+      </footer>
+    </div>
+  </main>
 </template>
 
 
 <style scoped>
-.pc-app-box {
-  min-width: 1200px;
-  height: 100%;
-}
-
 main {
   position: relative;
   width: 100%;
