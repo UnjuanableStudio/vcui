@@ -8,4 +8,5 @@ const Sidebar = Object.assign(_Sidebar, {
         app.component(getPrefixComponent(_SidebarItem.name), _SidebarItem)
     }
 })
+
 export default Sidebar
