@@ -18,6 +18,10 @@ const routes = [
         meta: {label: "PC Layout"}
     },
     {
+        path: '/pc_sidebar', component: () => import("../pages/TestSidebar.vue"),
+        meta: {label: "Sidebar"}
+    },
+    {
         path: '/pointer_path', component: () => import("../pages/TestPointerPath.vue"),
         meta: {label: "通过画布获取轨迹点"}
     }

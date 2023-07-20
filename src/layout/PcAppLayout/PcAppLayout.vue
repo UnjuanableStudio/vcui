@@ -1,5 +1,5 @@
 <script>
-import {computed, onMounted, ref, useSlots} from "vue";
+import {computed, onMounted, onUpdated, ref, watch, useSlots} from "vue";
 
 export default {
   name: "PcAppLayout",
@@ -10,62 +10,105 @@ export default {
     showRightPanel: {type: Boolean, default: true},
     inBox: {type: Boolean, default: true},
   },
-  emits: ['update:showLeftPanel'],
+  emits: ['update:showLeftPanel', 'update:showRightPanel'],
   setup(props, ctx) {
-    const slots = useSlots()
-    const content = ref(null)
-    const contentWidth = ref(0)
-    const contentHeight = ref(0)
+    const slots = useSlots() // slots
+    const content = ref(null) // 内容显示区域的Dom
+    const contentWidth = ref(0) // 内容区域宽度
+    const contentHeight = ref(0) // 内容区域高度
+    /**
+     * 切换左边栏开关状态
+     */
     const toggleLeftPanel = () => {
       ctx.emit("update:showLeftPanel", !props.showLeftPanel)
     }
+    /**
+     * 切换右边栏开关状态
+     */
+    const toggleRightPanel = () => {
+      ctx.emit("update:showRightPanel", !props.showRightPanel)
+    }
+    /**
+     * 计算Content区域的大小
+     */
+    const countContentSize = () => {
+      contentWidth.value = content.value.clientWidth // 计算的Content宽度
+      contentHeight.value = content.value.clientHeight // 计算的Content高度
+    }
+    /**
+     * 左边栏动态样式
+     * @type {ComputedRef<{width: string|number}>}
+     */
     const leftPanelStyle = computed(() => {
       return {
         width: props.showLeftPanel ? props.leftPanelWidth + 'px' : 0
       }
     })
+    /**
+     * 右边栏动态样式
+     * @type {ComputedRef<{width: string|number}>}
+     */
+    const rightPanelStyle = computed(() => {
+      return {
+        width: props.showRightPanel ? props.rightPanelWidth + 'px' : 0
+      }
+    })
+    /**
+     * 除左边栏外右侧核心区样式
+     * @type {ComputedRef<{width: string|string}>}
+     */
     const mainStyle = computed(() => {
       return {
         width: props.showLeftPanel ? 'calc(100% - ' + props.leftPanelWidth + 'px)' : '100%'
       }
     })
+    /**
+     * Main中除掉Footer后区域样式
+     * @type {ComputedRef<{height: string}>}
+     */
     const containerStyle = computed(() => {
       const height = slots["footer"] ? 40 : 0
       return {
         height: 'calc(100% - ' + height + 'px)'
       }
     })
+    /**
+     * Main中Container上部工具栏样式
+     * @type {ComputedRef<{width: string}>}
+     */
     const toolbarStyle = computed(() => {
       const width = props.showRightPanel ? props.rightPanelWidth : 0
       return {
         width: 'calc(100% - ' + width + 'px)'
       }
     })
+    /**
+     * Container中Content内容区域样式
+     * @type {ComputedRef<{width: string, height: string}>}
+     */
     const contentStyle = computed(() => {
-      const width = props.showRightPanel ? props.rightPanelWidth : 0
-      const height = slots["toolbar"] ? 40 : 0
+      const offsetWidth = props.showRightPanel ? props.rightPanelWidth : 0
+      const offsetHeight = slots["toolbar"] ? 40 : 0
       return {
-        width: 'calc(100% - ' + width + 'px)',
-        height: 'calc(100% - ' + height + 'px)'
+        width: 'calc(100% - ' + offsetWidth + 'px)',
+        height: 'calc(100% - ' + offsetHeight + 'px)'
       }
     })
-    const rightPanelStyle = computed(() => {
-      return {
-        width: props.showRightPanel ? props.rightPanelWidth + 'px' : '0'
-      }
-    })
+
     onMounted(() => {
-      contentWidth.value = content.value.clientWidth
-      contentHeight.value = content.value.clientHeight
+      countContentSize()
       window && window.addEventListener("resize", () => {
-        contentWidth.value = content.value.clientWidth
-        contentHeight.value = content.value.clientHeight
+        countContentSize()
       })
+    })
+
+    onUpdated(() => {
+      countContentSize()
     })
 
     return {
       content,
-      toggleLeftPanel,
+      toggleLeftPanel, toggleRightPanel,
       contentWidth, contentHeight,
       leftPanelStyle, mainStyle, containerStyle, toolbarStyle, contentStyle, rightPanelStyle
     }
@@ -124,6 +167,7 @@ main .left {
   float: left;
   height: 100%;
   background-color: #191a1b;
+  color: #fff;
 }
 
 main .main {
@@ -144,6 +188,7 @@ main .main .container .toolbar {
   position: relative;
   width: 100%;
   height: 40px;
+  line-height: 40px;
   background-color: white;
 }
 
@@ -160,6 +205,7 @@ main .main .panel {
   width: 270px;
   height: 100%;
   background-color: #191a1b;
+  color: #fff;
 }
 
 footer {

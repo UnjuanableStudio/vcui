@@ -1,39 +1,36 @@
 <template>
-  <vc-pc-app-layout :show-left-panel="true" :inBox="false" :leftPanelWidth="collapsed?400:80">
+  <vc-pc-app-layout :show-left-panel="true" :inBox="false"
+                    :leftPanelWidth="collapsed?400:80"
+                    :showLeftPanel="sl"
+                    :showRightPanel="sr">
     <template #left-panel>
-      <sidebar v-model:collapsed="collapsed" v-model:activated="activate">
-        <sidebar-item label="按钮" :icon="$iconfont('icon-uploader',22)" :active="activate===0">
-          <test-sidebar-item1></test-sidebar-item1>
-        </sidebar-item>
-        <sidebar-item label="按钮2" :icon="$iconfont('icon-uploader',22)" :active="activate===1" keepalive>
-          <test-sidebar-item2></test-sidebar-item2>
-        </sidebar-item>
-      </sidebar>
+      左边栏
+    </template>
+    <template #right-panel>
+      右边栏
     </template>
     <template #content="cont">
-      {{ cont.width }}
-      {{ cont.height }}
+      宽度：{{ cont.width }}
+      高度：{{ cont.height }}
     </template>
     <template #toolbar>
-      111
+      <a @click="sl=!sl">左边菜单</a>
+      <a @click="sr=!sr">右边菜单</a>
     </template>
     <template #footer>
-     aaaa
+      Footer
     </template>
   </vc-pc-app-layout>
 </template>
 
 <script setup>
 import {VcPcAppLayout} from "../../src/";
-import Sidebar from "../../src/component/Sidebar/Sidebar.vue";
-import SidebarItem from "../../src/component/Sidebar/SidebarItem.vue";
-import TestSidebarItem1 from "../components/TestSidebar/TestSidebarItem1.vue";
-import TestSidebarItem2 from "../components/TestSidebar/TestSidebarItem2.vue";
 import {ref} from "vue";
 
-const collapsed = ref(false)
+const collapsed = ref(true)
 const activate = ref(1)
-
+const sl = ref(true)
+const sr = ref(true)
 </script>
 
 <style scoped>
